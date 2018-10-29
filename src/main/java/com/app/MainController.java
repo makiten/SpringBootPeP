@@ -74,7 +74,15 @@ public class MainController {
             
 	return new OutboundResponse(String.valueOf(personService.OnboardPerson(person)));
 	}
-        
+
+    @RequestMapping(value = "/update", method= RequestMethod.PUT)  
+	public OutboundResponse updatePerson (@RequestBody Person person) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+         logger.debug("--updating person--");
+            
+	return new OutboundResponse("true");
+	}        
   
     @RequestMapping(value = "/getOne/{token}", method= RequestMethod.GET)
 	public Person getThisUser(@PathVariable Integer token) {
@@ -86,6 +94,15 @@ public class MainController {
                 
 	}
 
+    @RequestMapping(value = "/deleteOne/{token}", method= RequestMethod.DELETE)
+        public OutboundResponse deleteThisUser(@PathVariable Integer token) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+
+        logger.debug("Inside deleteing a person ");              
+	return new OutboundResponse("true");
+	}
+        
     @RequestMapping(value = "/getAll", method= RequestMethod.GET)
 	public Iterable<Person> getAllUsers() {
 		// This returns a JSON or XML with the users
