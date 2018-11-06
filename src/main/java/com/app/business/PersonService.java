@@ -29,14 +29,19 @@ public class PersonService {
         return "You saved it!";
     }
     
-    public boolean OnboardPerson(Person person) {
-		Person n = new Person();
-		n.setFirstName(person.getFirstName());
-		n.setEmail(person.getEmail());
-		personRepository.save(n);
-		logger.debug("--saving person in person service--");
-		return true;
-    }
+public boolean OnboardPerson(Person person) {
+        Person n = new Person();
+        n.setFirstName(person.getFirstName());
+        n.setEmail(person.getEmail());
+        n.setAccountNumber(person.getAccountNumber());
+        n.setLastName(person.getLastName());
+        n.setLoginID(person.getLoginID());
+        n.setPhone(person.getPhone());
+        n.setRoutingNumber(person.getRoutingNumber());
+        personRepository.save(n);
+        logger.debug("--saving person in person service--");
+        return true;
+   }
     
 	public Person getThisUser(Integer token) {               
 		return personRepository.findByPersonIndex(token); 
