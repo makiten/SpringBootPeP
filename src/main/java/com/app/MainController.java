@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 @CrossOrigin(origins = "*", maxAge = 36000)  // must have thsi to avoid cros scripting erros if accessing directly.
 @RestController    // using @RestController and not @Controller so we don't have to use @responsebody in our methods 
-@RequestMapping(path="/customer") // This means URL's start with /demo (after Application path)
+@RequestMapping(path="/customers") // This means URL's start with /demo (after Application path)
 @Api(value="Customer Master", description="Operations pertaining to Customer Master Data")
 public class MainController {
     
@@ -56,7 +56,7 @@ public class MainController {
     return new OutboundResponse(String.valueOf(random.nextInt(1000)));
     }   
     
-    @RequestMapping(value = "/getToken", method= RequestMethod.POST)  
+    @RequestMapping(value = "/generateToken", method= RequestMethod.POST)
 	public OutboundResponse getToken (@RequestParam String acct, @RequestParam String routingno) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -66,7 +66,7 @@ public class MainController {
 	}
 
 
-    @RequestMapping(value = "/add", method= RequestMethod.POST)  
+    @RequestMapping(value = "/", method= RequestMethod.POST)
 	public OutboundResponse addNewPerson (@RequestBody Person person) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -75,7 +75,7 @@ public class MainController {
 	return new OutboundResponse(String.valueOf(personService.OnboardPerson(person)));
 	}
 
-    @RequestMapping(value = "/update", method= RequestMethod.PUT)  
+    @RequestMapping(value = "/{token}", method= RequestMethod.PUT)
 	public OutboundResponse updatePerson (@RequestBody Person person) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -84,7 +84,7 @@ public class MainController {
 	return new OutboundResponse("true");
 	}        
   
-    @RequestMapping(value = "/getOne/{token}", method= RequestMethod.GET)
+    @RequestMapping(value = "/{token}", method= RequestMethod.GET)
 	public Person getThisUser(@PathVariable Integer token) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -94,7 +94,7 @@ public class MainController {
                 
 	}
 
-    @RequestMapping(value = "/deleteOne/{token}", method= RequestMethod.DELETE)
+    @RequestMapping(value = "/{token}", method= RequestMethod.DELETE)
         public OutboundResponse deleteThisUser(@PathVariable Integer token) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
@@ -103,7 +103,7 @@ public class MainController {
 	return new OutboundResponse("true");
 	}
         
-    @RequestMapping(value = "/getAll", method= RequestMethod.GET)
+    @RequestMapping(value = "/", method= RequestMethod.GET)
 	public Iterable<Person> getAllUsers() {
 		// This returns a JSON or XML with the users
         logger.error("Not really an error just testing");
